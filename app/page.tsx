@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import type React from "react";
 
 import { useState } from "react";
@@ -30,11 +28,15 @@ import {
   X,
   Github,
   ChevronDown,
+  ChevronRight,
+  User,
+  Briefcase,
+  FolderOpen,
 } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 export default function Portfolio() {
-  const [currentLang, setCurrentLang] = useState<"en" | "ar" | "nl">("en");
+  const [currentLang, setCurrentLang] = useState<"en" | "nl">("en");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [uploadedCV, setUploadedCV] = useState<File | null>(null);
@@ -43,13 +45,12 @@ export default function Portfolio() {
 
   const languages = [
     { code: "en" as const, name: "English", flag: "🇺🇸" },
-    { code: "ar" as const, name: "العربية", flag: "sy" },
     { code: "nl" as const, name: "Nederlands", flag: "🇳🇱" },
   ];
 
   const currentLanguage = languages.find((lang) => lang.code === currentLang);
 
-  const handleLanguageChange = (langCode: "en" | "ar" | "nl") => {
+  const handleLanguageChange = (langCode: "en" | "nl") => {
     setCurrentLang(langCode);
     setLangDropdownOpen(false);
   };
@@ -93,72 +94,53 @@ export default function Portfolio() {
   };
 
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 ${
-        currentLang === "ar" ? "rtl" : "ltr"
-      }`}
-    >
+    <div>
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 dark:bg-slate-900/80 dark:border-slate-800">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">WI</span>
+            {/* Logo/Branding */}
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shrink-0">
+                <span className="text-white font-bold text-sm">WI</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-800">
+                <h1 className="text-lg font-bold text-slate-800 dark:text-white">
                   Waseem Isaac
                 </h1>
-                <p className="text-sm text-slate-600">{t.title}</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">
+                  {t.title}
+                </p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
-              <a
-                href="#about"
-                className="text-slate-600 hover:text-blue-600 transition-colors"
-              >
-                {t.nav.about}
-              </a>
-              <a
-                href="#skills"
-                className="text-slate-600 hover:text-blue-600 transition-colors"
-              >
-                {t.nav.skills}
-              </a>
-              <a
-                href="#experience"
-                className="text-slate-600 hover:text-blue-600 transition-colors"
-              >
-                {t.nav.experience}
-              </a>
-              <a
-                href="#projects"
-                className="text-slate-600 hover:text-blue-600 transition-colors"
-              >
-                {t.nav.projects}
-              </a>
-              <a
-                href="#contact"
-                className="text-slate-600 hover:text-blue-600 transition-colors"
-              >
-                {t.nav.contact}
-              </a>
+            <nav className="hidden md:flex items-center space-x-5">
+              {["about", "skills", "experience", "projects", "contact"].map(
+                (item) => (
+                  <a
+                    key={item}
+                    href={`#${item}`}
+                    className="text-sm text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    {t.nav[item as keyof typeof t.nav]}
+                  </a>
+                )
+              )}
             </nav>
 
-            {/* Language Dropdown */}
-            <div className="flex items-center space-x-2">
+            {/* Right Side Controls */}
+            <div className="flex items-center space-x-3">
+              {/* Language Dropdown */}
               <div className="relative">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                  className="flex items-center space-x-2 min-w-[100px] justify-between"
+                  className="flex items-center space-x-1.5 min-w-[90px] justify-between"
                 >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm">{currentLanguage?.flag}</span>
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">{currentLanguage?.flag}</span>
                     <span className="text-xs font-medium">
                       {currentLanguage?.code.toUpperCase()}
                     </span>
@@ -171,24 +153,28 @@ export default function Portfolio() {
                 </Button>
 
                 {langDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-1 w-36 bg-white border border-slate-200 rounded-md shadow-lg z-20">
+                  <div
+                    className="absolute top-full right-0 mt-1 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg z-20"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => handleLanguageChange(lang.code)}
+                        onClick={() => {
+                          handleLanguageChange(lang.code);
+                          setLangDropdownOpen(false);
+                        }}
                         className={`
-                          w-full text-left px-3 py-2 text-sm hover:bg-slate-50 transition-colors duration-150 flex items-center space-x-2
-                          ${
-                            currentLang === lang.code
-                              ? "bg-blue-50 text-blue-700"
-                              : "text-slate-700"
-                          }
-                        `}
+                    w-full text-left px-3 py-1.5 text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center space-x-2
+                    ${
+                      currentLang === lang.code
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
+                        : "text-slate-700 dark:text-slate-300"
+                    }
+                  `}
                       >
                         <span>{lang.flag}</span>
-                        <span className="text-xs font-medium">
-                          {lang.code.toUpperCase()}
-                        </span>
+                        <span>{lang.code.toUpperCase()}</span>
                       </button>
                     ))}
                   </div>
@@ -199,54 +185,140 @@ export default function Portfolio() {
               <Button
                 variant="outline"
                 size="sm"
-                className="md:hidden"
+                className="md:hidden z-50"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? (
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-2" />
                 ) : (
-                  <Menu className="h-4 w-4" />
+                  <Menu className="h-4 w-2" />
                 )}
+                <span className="sr-only">
+                  {mobileMenuOpen ? "Close menu" : "Open menu"}
+                </span>
               </Button>
             </div>
           </div>
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <nav className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4">
-              <div className="flex flex-col space-y-2">
-                <a
-                  href="#about"
-                  className="text-slate-600 hover:text-blue-600 transition-colors py-2"
-                >
-                  {t.nav.about}
-                </a>
-                <a
-                  href="#skills"
-                  className="text-slate-600 hover:text-blue-600 transition-colors py-2"
-                >
-                  {t.nav.skills}
-                </a>
-                <a
-                  href="#experience"
-                  className="text-slate-600 hover:text-blue-600 transition-colors py-2"
-                >
-                  {t.nav.experience}
-                </a>
-                <a
-                  href="#projects"
-                  className="text-slate-600 hover:text-blue-600 transition-colors py-2"
-                >
-                  {t.nav.projects}
-                </a>
-                <a
-                  href="#contact"
-                  className="text-slate-600 hover:text-blue-600 transition-colors py-2"
-                >
-                  {t.nav.contact}
-                </a>
-              </div>
-            </nav>
+            <div className="fixed inset-0 z-40 md:hidden">
+              {/* Overlay with fade animation */}
+              <div
+                className="absolute inset-0 bg-black/30  transition-opacity duration-300 ease-in-out"
+                onClick={() => setMobileMenuOpen(false)}
+              />
+
+              {/* Menu with slide-in animation */}
+              <nav className="absolute right-0 top-0 ">
+                <div className="flex flex-col h-full pt-16 px-2 space-y-2">
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="absolute top-4 right-4 p-2" // Added flex, items-center, justify-center
+                    aria-label="Close menu"
+                  >
+                    <X className="h-1 w-1" /> {/* Added inline-block */}
+                  </button>
+
+                  {/* Navigation items with icons */}
+                  {[
+                    { id: "about", icon: User, color: "text-blue-500" },
+                    { id: "skills", icon: Code, color: "text-green-500" },
+                    {
+                      id: "experience",
+                      icon: Briefcase,
+                      color: "text-purple-500",
+                    },
+                    {
+                      id: "projects",
+                      icon: FolderOpen,
+                      color: "text-orange-500",
+                    },
+                    { id: "contact", icon: Mail, color: "text-pink-500" },
+                  ].map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="flex items-center gap-4 text-black px-4 py-3  bg-black/50 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-all duration-200 group "
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className={`p-2 rounded-lg ${item.color} `}>
+                        <item.icon className="h-5 w-5" />
+                      </div>
+                      <span className="text-md font-medium flex-1">
+                        {t.nav[item.id as keyof typeof t.nav]}
+                      </span>
+                      <ChevronRight className="h-4 w-4 ml-2 opacity-10 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    </a>
+                  ))}
+
+                  {/* Language selector for mobile */}
+                  <div className="mt-auto mb-6 px-2 py-3 bg-slate-100/30 dark:bg-slate-800/30 rounded-lg">
+                    <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 px-2">
+                      languages
+                    </div>
+                    <div className="flex gap-2">
+                      {languages.map((lang) => (
+                        <Button
+                          key={lang.code}
+                          variant={
+                            currentLang === lang.code ? "default" : "outline"
+                          }
+                          size="sm"
+                          className="text-xs h-8 px-3 flex-1"
+                          onClick={() => handleLanguageChange(lang.code)}
+                        >
+                          <span className="mr-1">{lang.flag}</span>
+                          {lang.name}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Social links with subtle hover effects */}
+                  <div className="flex justify-center gap-2 px-4 py-3 border-t border-slate-200/30 dark:border-slate-800/30">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/30"
+                      asChild
+                    >
+                      <a
+                        href="https://github.com/waseemisaac91"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/30"
+                      asChild
+                    >
+                      <a
+                        href="https://linkedin.com/in/engwaseemisaac"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin className="h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-red-100/50 dark:hover:bg-red-900/30"
+                      asChild
+                    >
+                      <a href="mailto:waseem.isaac.2016@gmail.com">
+                        <Mail className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </nav>
+            </div>
           )}
         </div>
       </header>
