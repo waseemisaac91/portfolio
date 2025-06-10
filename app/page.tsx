@@ -43,7 +43,7 @@ export default function Portfolio() {
 
   const languages = [
     { code: "en" as const, name: "English", flag: "🇺🇸" },
-    { code: "ar" as const, name: "العربية", flag: "🇸🇦" },
+    { code: "ar" as const, name: "العربية", flag: "sy" },
     { code: "nl" as const, name: "Nederlands", flag: "🇳🇱" },
   ];
 
