@@ -1,5 +1,7 @@
 "use client";
 
+"use client";
+
 import type React from "react";
 
 import { useState } from "react";
@@ -27,15 +29,30 @@ import {
   Menu,
   X,
   Github,
+  ChevronDown,
 } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 export default function Portfolio() {
   const [currentLang, setCurrentLang] = useState<"en" | "ar" | "nl">("en");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [uploadedCV, setUploadedCV] = useState<File | null>(null);
 
   const t = translations[currentLang];
+
+  const languages = [
+    { code: "en" as const, name: "English", flag: "🇺🇸" },
+    { code: "ar" as const, name: "العربية", flag: "🇸🇦" },
+    { code: "nl" as const, name: "Nederlands", flag: "🇳🇱" },
+  ];
+
+  const currentLanguage = languages.find((lang) => lang.code === currentLang);
+
+  const handleLanguageChange = (langCode: "en" | "ar" | "nl") => {
+    setCurrentLang(langCode);
+    setLangDropdownOpen(false);
+  };
 
   const handleCVUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -131,32 +148,52 @@ export default function Portfolio() {
               </a>
             </nav>
 
-            {/* Language Switcher */}
+            {/* Language Dropdown */}
             <div className="flex items-center space-x-2">
-              <Button
-                variant={currentLang === "en" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCurrentLang("en")}
-                className="text-xs"
-              >
-                EN
-              </Button>
-              <Button
-                variant={currentLang === "ar" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCurrentLang("ar")}
-                className="text-xs"
-              >
-                AR
-              </Button>
-              <Button
-                variant={currentLang === "nl" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCurrentLang("nl")}
-                className="text-xs"
-              >
-                NL
-              </Button>
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                  className="flex items-center space-x-2 min-w-[100px] justify-between"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm">{currentLanguage?.flag}</span>
+                    <span className="text-xs font-medium">
+                      {currentLanguage?.code.toUpperCase()}
+                    </span>
+                  </div>
+                  <ChevronDown
+                    className={`w-3 h-3 transition-transform duration-200 ${
+                      langDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </Button>
+
+                {langDropdownOpen && (
+                  <div className="absolute top-full right-0 mt-1 w-36 bg-white border border-slate-200 rounded-md shadow-lg z-20">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className={`
+                          w-full text-left px-3 py-2 text-sm hover:bg-slate-50 transition-colors duration-150 flex items-center space-x-2
+                          ${
+                            currentLang === lang.code
+                              ? "bg-blue-50 text-blue-700"
+                              : "text-slate-700"
+                          }
+                        `}
+                      >
+                        <span>{lang.flag}</span>
+                        <span className="text-xs font-medium">
+                          {lang.code.toUpperCase()}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Mobile Menu Button */}
               <Button
@@ -699,6 +736,7 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
+
       <footer className="bg-slate-800 text-white py-8 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <p>&copy; 2025 Waseem Isaac. {t.footer.rights}</p>
