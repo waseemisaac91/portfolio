@@ -189,9 +189,9 @@ export default function Portfolio() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? (
-                  <X className="h-4 w-2" />
+                  <X className="h-2 w-2" />
                 ) : (
-                  <Menu className="h-4 w-2" />
+                  <Menu className="h-3 w-2" />
                 )}
                 <span className="sr-only">
                   {mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -205,16 +205,16 @@ export default function Portfolio() {
             <div className="fixed inset-0 z-40 md:hidden">
               {/* Overlay with fade animation */}
               <div
-                className="absolute inset-0 bg-black/30  transition-opacity duration-300 ease-in-out"
+                className="absolute inset-0 bg-black/20  transition-opacity duration-300 ease-in-out"
                 onClick={() => setMobileMenuOpen(false)}
               />
 
               {/* Menu with slide-in animation */}
               <nav className="absolute right-0 top-0 ">
-                <div className="flex flex-col h-full pt-16 px-2 space-y-2">
+                <div className="flex flex-col h-full pt-20 px-2 space-y-2">
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="absolute top-4 right-4 p-2" // Added flex, items-center, justify-center
+                    className="absolute top-3 right-4 p-2" // Added flex, items-center, justify-center
                     aria-label="Close menu"
                   >
                     <X className="h-1 w-1" /> {/* Added inline-block */}
@@ -239,13 +239,13 @@ export default function Portfolio() {
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className="flex items-center gap-4 text-black px-4 py-3  bg-black/50 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-all duration-200 group "
+                      className="flex items-center  px-4 py-3 my-5  bg-black/80 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-all duration-200 group "
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className={`p-2 rounded-lg ${item.color} `}>
                         <item.icon className="h-5 w-5" />
                       </div>
-                      <span className="text-md font-medium flex-1">
+                      <span className="text-blod font-lg flex-1 text-slate-50">
                         {t.nav[item.id as keyof typeof t.nav]}
                       </span>
                       <ChevronRight className="h-4 w-4 ml-2 opacity-10 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
