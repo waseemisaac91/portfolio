@@ -59,14 +59,13 @@ export default function Portfolio() {
     programming: ["C#", "Java", "Python", "C++", "Dart", "PHP"],
     web: ["HTML", "CSS", "JavaScript", "React", "ASP.NET Core", "MVC"],
     databases: ["MySQL", "MSSQL", "Hana", "MongoDB"],
-    frameworks: ["ASP.NET Core", "Flutter", "Django", "Angular"],
+    frameworks: ["ASP.NET Core", "Flutter", "Django", "Nextjs"],
     tools: [
       "Visual Studio Code",
       "Visual Studio",
       "Android Studio",
       "Packet Tracer",
     ],
-    automation: ["PLC Systems", "ERP/MES Systems"],
     ml: ["Scikit-Learn", "Pandas", "NumPy", "Matplotlib"],
     personal: [
       t.skills.problemSolving,
@@ -420,24 +419,6 @@ export default function Portfolio() {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {skills.ml.map((skill) => (
-                    <Badge key={skill} variant="secondary">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-indigo-500">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-indigo-600">
-                  <Wrench className="h-5 w-5" />
-                  {t.skills.automation}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {skills.automation.map((skill) => (
                     <Badge key={skill} variant="secondary">
                       {skill}
                     </Badge>
