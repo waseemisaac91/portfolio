@@ -189,7 +189,7 @@ export default function Portfolio() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? (
-                  <X className="h-2 w-2" />
+                  <X className="h-2 w-2 " />
                 ) : (
                   <Menu className="h-3 w-2" />
                 )}
@@ -205,19 +205,19 @@ export default function Portfolio() {
             <div className="fixed inset-0 z-40 md:hidden">
               {/* Overlay with fade animation */}
               <div
-                className="absolute inset-0 bg-black/20  transition-opacity duration-300 ease-in-out"
+                className="absolute inset-0 bg-black/30  transition-opacity duration-300 ease-in-out"
                 onClick={() => setMobileMenuOpen(false)}
               />
 
               {/* Menu with slide-in animation */}
               <nav className="absolute right-0 top-0 ">
-                <div className="flex flex-col h-full pt-20 px-2 space-y-2">
+                <div className="flex flex-col h-full  pt-20 px-2 space-y-2">
                   <button
                     onClick={() => setMobileMenuOpen(false)}
                     className="absolute top-3 right-4 p-2" // Added flex, items-center, justify-center
                     aria-label="Close menu"
                   >
-                    <X className="h-1 w-1" /> {/* Added inline-block */}
+                    <X className="h-5 w-5 " /> {/* Added inline-block */}
                   </button>
 
                   {/* Navigation items with icons */}
@@ -239,7 +239,7 @@ export default function Portfolio() {
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className="flex items-center  px-4 py-3 my-5  bg-black/80 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-all duration-200 group "
+                      className="flex items-center  px-3 py-2   bg-black/80 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-all duration-200 group "
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className={`p-2 rounded-lg ${item.color} `}>
@@ -248,12 +248,12 @@ export default function Portfolio() {
                       <span className="text-blod font-lg flex-1 text-slate-50">
                         {t.nav[item.id as keyof typeof t.nav]}
                       </span>
-                      <ChevronRight className="h-4 w-4 ml-2 opacity-10 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                      <ChevronRight className="h-5 w-5 ml-2 bg-black text-white opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     </a>
                   ))}
 
-                  {/* Language selector for mobile */}
-                  <div className="mt-auto mb-6 px-2 py-3 bg-slate-100/30 dark:bg-slate-800/30 rounded-lg">
+                  {/* Language selector for mobile 
+                   <div className="mt-auto mb-6 px-2 py-3 bg-slate-100/30 dark:bg-slate-800/30 rounded-lg">
                     <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 px-2">
                       languages
                     </div>
@@ -273,49 +273,9 @@ export default function Portfolio() {
                         </Button>
                       ))}
                     </div>
-                  </div>
+                  </div>*/}
 
                   {/* Social links with subtle hover effects */}
-                  <div className="flex justify-center gap-2 px-4 py-3 border-t border-slate-200/30 dark:border-slate-800/30">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/30"
-                      asChild
-                    >
-                      <a
-                        href="https://github.com/waseemisaac91"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="h-4 w-4" />
-                      </a>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/30"
-                      asChild
-                    >
-                      <a
-                        href="https://linkedin.com/in/engwaseemisaac"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Linkedin className="h-4 w-4" />
-                      </a>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-9 w-9 rounded-full bg-white/20 dark:bg-slate-800/20 hover:bg-red-100/50 dark:hover:bg-red-900/30"
-                      asChild
-                    >
-                      <a href="mailto:waseem.isaac.2016@gmail.com">
-                        <Mail className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
                 </div>
               </nav>
             </div>
